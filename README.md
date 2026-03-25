@@ -1,6 +1,6 @@
 ![Project Screenshot](img/image.png)
 
-**Project URL:** - https://github.com/Priyanshu-Bhatt09/CLI-Task-Tracker
+**Project URL:** - https://roadmap.sh/projects/task-tracker
 
 ## CLI Task Tracker
 About the Project
