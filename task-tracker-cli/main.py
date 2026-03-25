@@ -15,7 +15,7 @@ def add_tasks(tasks):
     task = {
         "id": len(tasks) + 1,
         "title": title,
-        "completed": False
+        "status": "pending"
     }
 
     tasks.append(task)
@@ -27,20 +27,20 @@ def view_tasks(tasks):
         print("No tasks found")
         return
     for task in tasks:
-        status = "✓" if task["completed"] else "X"
-        print(f'{task["id"]}. {task["title"]} [{status}]')
+        # status = "✓" if task["completed"] else "X"
+        print(f'{task["id"]}. {task["title"]} [{task["status"]}]')
 
-def completed_tasks(tasks):
-    task_id = int(input("Enter task id to complete: "))
+# def completed_tasks(tasks):
+#     task_id = int(input("Enter task id to complete: "))
 
-    for task in tasks:
-        if task["id"] == task_id:
-            task["completed"] = True
-            save_tasks(tasks)
-            print("Task Completed")
-            return
+#     for task in tasks:
+#         if task["id"] == task_id:
+#             task["completed"] = True
+#             save_tasks(tasks)
+#             print("Task Completed")
+#             return
         
-    print("Task not found")
+#     print("Task not found")
 
 def delete_tasks(tasks):
     task_id = int(input("Enter task id to delete: "))
@@ -54,6 +54,47 @@ def delete_tasks(tasks):
         
     print("Task not found")
 
+def update_tasks(tasks):
+    task_id = int(input("Enter task id to update: "))
+
+    for task in tasks:
+        if task["id"] == task_id:
+            new_title = input("Enter new title: ")
+            task["title"] = new_title
+            save_tasks(tasks)
+            print("Task updated")
+            return
+    
+    print("Task not found")
+
+def change_status(tasks):
+    task_id = int(input("Enter task id: "))
+
+    for task in tasks:
+        if task["id"] == task_id:
+            print("1. Pending")
+            print("2. Completed")
+            print("3. In Progress")
+
+        choice = input("Choose status: ")
+
+        if choice == "1":
+            task["status"] = "Pending"
+        elif choice == "2":
+            task["status"] = "Completed"
+        elif choice == "3":
+            task["status"] = "In Progress"
+        else:
+            print("Invalid choice")
+            return
+        
+        save_tasks(tasks)
+        print("Status updated!")
+        return
+    
+
+    print("Task not found")
+
 def main():
     tasks = load_tasks()
 
@@ -61,9 +102,10 @@ def main():
         print("\nTask Tracker")
         print("1. View Task")
         print("2. Add Task")
-        print("3. Complete Task")
+        print("3. Update Status")
         print("4. Delete Task")
-        print("5. Exit")
+        print("5. Update Task")
+        print("6. Exit")
 
         choice = input("Enter your option: ")
 
@@ -72,10 +114,12 @@ def main():
         elif choice == "2":
             add_tasks(tasks)
         elif choice == "3":
-            completed_tasks(tasks)
+            change_status(tasks)
         elif choice == "4":
             delete_tasks(tasks)
         elif choice == "5":
+            update_tasks(tasks)
+        elif choice == "6":
             break
         else: 
             print("Invalid choice")
